@@ -6,8 +6,18 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:45:27 by coder             #+#    #+#             */
-/*   Updated: 2022/09/14 19:45:41 by coder            ###   ########.fr       */
+/*   Updated: 2022/09/14 20:33:54 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
