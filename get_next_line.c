@@ -6,7 +6,7 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:44:35 by coder             #+#    #+#             */
-/*   Updated: 2022/09/20 15:45:41 by coder            ###   ########.fr       */
+/*   Updated: 2022/09/21 22:37:54 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static char	*set_buffer(int fd, char *buffer);
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buf;
 
-	if (fd < -1 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = set_buffer(fd, buffer);
-	return (buffer);
+	buf = set_buffer(fd, buf);
+	return (buf);
 }
 
 static char	*set_buffer(int fd, char *buffer)
@@ -37,6 +37,13 @@ static char	*set_buffer(int fd, char *buffer)
 		i = read(fd, tmp, BUFFER_SIZE);
 		if (i == 0 || i == -1)
 			break ;
+		tmp[i] = '\0';
+		buffer = ft_strjoin(buffer, tmp);
+		if (buffer == NULL)
+		{
+			free(tmp);
+			return (NULL);
+		}
 	}
 	free(tmp);
 	return (buffer);
