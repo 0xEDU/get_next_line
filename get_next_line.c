@@ -6,12 +6,11 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:44:35 by coder             #+#    #+#             */
-/*   Updated: 2022/09/26 16:38:35 by coder            ###   ########.fr       */
+/*   Updated: 2022/09/26 22:37:56 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*set_buffer(int fd, char *buffer);
 static char	*get_line(char *buffer);
@@ -65,21 +64,24 @@ static char	*get_line(char *buffer)
 	size_t	i;
 
 	i = 0;
-	if (!*(buffer + i))
+	if (*(buffer + i) == '\0')
 		return (NULL);
-	while (*(buffer + i) && *(buffer + i) != '\n')
+	while (*(buffer + i) != '\0' && *(buffer + i) != '\n')
 		i++;
 	line = ft_calloc(i + (*(buffer + i) == '\n') + 1, sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	i = 0;
-	while (*(buffer + i) && *(buffer + i) != '\n')
+	while (*(buffer + i) != '\0' && *(buffer + i) != '\n')
 	{
 		*(line + i) = *(buffer + i);
 		i++;
 	}
 	if (*(buffer + i) == '\n')
-		line[i++] = '\n';
+	{
+		*(line + i) = '\n';
+		i++;
+	}
 	return (line);
 }
 
@@ -91,9 +93,9 @@ static char	*go_to_next_line(char *buffer)
 
 	i = 0;
 	j = 0;
-	while (*(buffer + i) != '\n' && *(buffer + i))
+	while (*(buffer + i) != '\n' && *(buffer + i) != '\0')
 		i++;
-	if (!*(buffer + i))
+	if (*(buffer + i) == '\0')
 	{
 		free(buffer);
 		return (NULL);
@@ -102,7 +104,7 @@ static char	*go_to_next_line(char *buffer)
 	if (next == NULL)
 		return (NULL);
 	i++;
-	while (*(buffer + i + j))
+	while (*(buffer + i + j) != '\0')
 	{
 		*(next + j) = *(buffer + i + j);
 		j++;
