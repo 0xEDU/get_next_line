@@ -6,7 +6,7 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:44:35 by coder             #+#    #+#             */
-/*   Updated: 2022/09/26 22:37:56 by coder            ###   ########.fr       */
+/*   Updated: 2022/09/27 10:39:12 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static char	*set_buffer(int fd, char *buffer)
 		i = read(fd, tmp, BUFFER_SIZE);
 		if (i == 0 || i == -1)
 			break ;
+		tmp[i] = '\0';
 		buffer = ft_strjoin(buffer, tmp);
 		if (buffer == NULL)
 		{
